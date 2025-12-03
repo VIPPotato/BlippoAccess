@@ -1,15 +1,15 @@
 ﻿using System.Reflection;
 using MelonLoader;
 
-[assembly: AssemblyTitle(TestMod.BuildInfo.Description)]
-[assembly: AssemblyDescription(TestMod.BuildInfo.Description)]
-[assembly: AssemblyCompany(TestMod.BuildInfo.Company)]
-[assembly: AssemblyProduct(TestMod.BuildInfo.Name)]
-[assembly: AssemblyCopyright("Created by " + TestMod.BuildInfo.Author)]
-[assembly: AssemblyTrademark(TestMod.BuildInfo.Company)]
-[assembly: AssemblyVersion(TestMod.BuildInfo.Version)]
-[assembly: AssemblyFileVersion(TestMod.BuildInfo.Version)]
-[assembly: MelonInfo(typeof(TestMod.TestMod), TestMod.BuildInfo.Name, TestMod.BuildInfo.Version, TestMod.BuildInfo.Author, TestMod.BuildInfo.DownloadLink)]
+[assembly: AssemblyTitle(BlippoAccess.BuildInfo.Description)]
+[assembly: AssemblyDescription(BlippoAccess.BuildInfo.Description)]
+[assembly: AssemblyCompany(BlippoAccess.BuildInfo.Company)]
+[assembly: AssemblyProduct(BlippoAccess.BuildInfo.Name)]
+[assembly: AssemblyCopyright("Created by " + BlippoAccess.BuildInfo.Author)]
+[assembly: AssemblyTrademark(BlippoAccess.BuildInfo.Company)]
+[assembly: AssemblyVersion(BlippoAccess.BuildInfo.Version)]
+[assembly: AssemblyFileVersion(BlippoAccess.BuildInfo.Version)]
+[assembly: MelonInfo(typeof(BlippoAccess.BlippoAccessMod), BlippoAccess.BuildInfo.Name, BlippoAccess.BuildInfo.Version, BlippoAccess.BuildInfo.Author, BlippoAccess.BuildInfo.DownloadLink)]
 [assembly: MelonColor()]
 
 // Create and Setup a MelonGame Attribute to mark a Melon as Universal or Compatible with specific Games.

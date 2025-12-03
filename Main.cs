@@ -53,7 +53,6 @@ namespace BlippoAccess
         public override void OnSceneWasLoaded(int buildindex, string sceneName)
         {
             _currentSceneName = sceneName;
-            Speak($"Scene loaded: {sceneName}");
             _lastSelectedObject = null;
             _pendingSelectedObject = null;
             _activeMessageObjects.Clear();

@@ -1,8 +1,5 @@
 # BlippoAccess - Accessibility Mod for Blippo
 
-**Author:** VIPPotato  
-**Version:** 1.1.0
-
 ## Overview
 BlippoAccess is a MelonLoader mod that provides accessibility features for the game "Blippo". It integrates with screen readers (primarily NVDA via Tolk) to voice the game's user interface, electronic program guide (EPG), and messaging systems.
 

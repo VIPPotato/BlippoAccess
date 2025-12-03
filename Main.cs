@@ -135,7 +135,9 @@ namespace BlippoAccess
             if (_pendingSelectedObject != null && (Time.time - _lastSelectionTime) > SELECTION_DEBOUNCE_DELAY)
             {
                 string narration = GetTextFromUIObject(_pendingSelectedObject);
-                if (!string.IsNullOrEmpty(narration))
+                
+                // Prevent re-reading channel info if it's just been announced by the channel monitor
+                if (!string.IsNullOrEmpty(narration) && narration != _lastChannelText && narration != _lastProgramText)
                 {
                     Speak(narration, true);
                 }
@@ -157,6 +159,10 @@ namespace BlippoAccess
                 if (go.name.Contains("Debug") || go.name.Contains("Console")) return false;
                 if (text.Contains("BLIPPO+")) return false; // Filter decorative
                 if (text.Contains("TRASH TYPE")) return false; // Filter noise
+                
+                // Prevent reading channel/program info as a "message"
+                if (text == _lastChannelText || text == _lastProgramText) return false;
+
                 return true;
             }
 
@@ -334,33 +340,57 @@ namespace BlippoAccess
             }
 
             // 1. Check for TextMeshProUGUI
+            string text = "";
             TextMeshProUGUI tmpComp = go.GetComponent<TextMeshProUGUI>();
             if (tmpComp != null && !string.IsNullOrEmpty(tmpComp.text))
             {
-                return tmpComp.text;
+                text = tmpComp.text;
+            }
+            else
+            {
+                TextMeshProUGUI[] tmpChildren = go.GetComponentsInChildren<TextMeshProUGUI>(true);
+                foreach (var tmp in tmpChildren)
+                {
+                    if (!string.IsNullOrEmpty(tmp.text)) 
+                    {
+                        text = tmp.text;
+                        break;
+                    }
+                }
             }
 
-            TextMeshProUGUI[] tmpChildren = go.GetComponentsInChildren<TextMeshProUGUI>(true);
-            foreach (var tmp in tmpChildren)
+            // 2. Check for standard Text component if no TMP found
+            if (string.IsNullOrEmpty(text))
             {
-                if (!string.IsNullOrEmpty(tmp.text)) return tmp.text;
-            }
-
-            // 2. Check for standard Text component
-            Text textComp = go.GetComponent<Text>();
-            if (textComp != null && !string.IsNullOrEmpty(textComp.text))
-            {
-                return textComp.text;
-            }
-
-            Text[] textChildren = go.GetComponentsInChildren<Text>(true);
-            foreach (var t in textChildren)
-            {
-                if (!string.IsNullOrEmpty(t.text)) return t.text;
+                Text textComp = go.GetComponent<Text>();
+                if (textComp != null && !string.IsNullOrEmpty(textComp.text))
+                {
+                    text = textComp.text;
+                }
+                else
+                {
+                    Text[] textChildren = go.GetComponentsInChildren<Text>(true);
+                    foreach (var t in textChildren)
+                    {
+                        if (!string.IsNullOrEmpty(t.text))
+                        {
+                            text = t.text;
+                            break;
+                        }
+                    }
+                }
             }
 
             // 3. Fallback to object name
-            return CleanObjectName(go.name);
+            if (string.IsNullOrEmpty(text))
+            {
+                text = CleanObjectName(go.name);
+            }
+
+            // Custom Renaming
+            if (text == "Enter Button") return "Open";
+
+            return text;
         }
 
         private string GetEPGInfo(GameObject go)

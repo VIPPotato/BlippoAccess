@@ -25,12 +25,15 @@ BlippoAccess is a MelonLoader mod that provides accessibility features for the g
     *   Download and install [MelonLoader](https://melonwiki.xyz/#/) (Version 0.6.1 or later recommended) into your Blippo game directory.
     *   Run the game once to generate the `Mods` folder.
 
-2.  **Install the Mod:**
+2.  **Install Dependencies:**
+    *   **Tolk & NVDA Controller:** Download the [Tolk](https://github.com/dkager/Tolk) library.
+    *   Place `Tolk.dll` and the appropriate `nvdaControllerClient` DLL (32 or 64 bit) into your game directory (where `Blippo+.exe` is).
+
+3.  **Install the Mod:**
     *   Download the latest `BlippoAccess.dll` release from the [GitHub Releases page](https://github.com/VIPPotato/BlippoAccess/releases).
     *   Place `BlippoAccess.dll` into the `Mods` folder in your game directory.
-    *   Ensure `Tolk.dll` and `nvdaControllerClient` DLLs are present in the game directory (these are usually included in the release zip).
 
-3.  **Play:**
+4.  **Play:**
     *   Start the game. You should hear "Blippo Accessibility Mod Loaded" if your screen reader is active.
 
 ## Compilation
@@ -69,23 +72,3 @@ To compile this mod from source, you will need Visual Studio 2019 or later.
 
 ## License
 **MIT License**
-
-Copyright (c) 2025 VIPPotato
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.

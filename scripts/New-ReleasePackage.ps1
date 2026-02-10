@@ -1,0 +1,66 @@
+param(
+    [Parameter(Mandatory = $true)]
+    [string]$Version,
+    [string]$Configuration = "Release",
+    [switch]$SkipBuild
+)
+
+$ErrorActionPreference = "Stop"
+
+$repoRoot = Resolve-Path (Join-Path $PSScriptRoot "..")
+$artifactsDir = Join-Path $repoRoot "artifacts"
+$stagingDir = Join-Path $artifactsDir "release-package"
+$modsDir = Join-Path $stagingDir "mods"
+$zipName = "BlippoAccess-$Version.zip"
+$zipPath = Join-Path $artifactsDir $zipName
+$modDllPath = Join-Path $repoRoot "bin\$Configuration\net472\BlippoAccess.dll"
+$supportFiles = @(
+    "Tolk.dll",
+    "nvdaControllerClient64.dll",
+    "nvdaControllerClient32.dll",
+    "release\README.txt"
+)
+
+Push-Location $repoRoot
+try {
+    if (-not $SkipBuild) {
+        dotnet build BlippoAccess.csproj -c $Configuration
+    }
+
+    if (-not (Test-Path $modDllPath)) {
+        throw "Mod DLL not found: $modDllPath"
+    }
+
+    foreach ($file in $supportFiles) {
+        $fullPath = Join-Path $repoRoot $file
+        if (-not (Test-Path $fullPath)) {
+            throw "Required release file not found: $fullPath"
+        }
+    }
+
+    if (Test-Path $stagingDir) {
+        Remove-Item $stagingDir -Recurse -Force
+    }
+
+    if (Test-Path $zipPath) {
+        Remove-Item $zipPath -Force
+    }
+
+    New-Item -ItemType Directory -Path $modsDir -Force | Out-Null
+
+    Copy-Item $modDllPath -Destination (Join-Path $modsDir "BlippoAccess.dll") -Force
+    Copy-Item (Join-Path $repoRoot "Tolk.dll") -Destination $stagingDir -Force
+    Copy-Item (Join-Path $repoRoot "nvdaControllerClient64.dll") -Destination $stagingDir -Force
+    Copy-Item (Join-Path $repoRoot "nvdaControllerClient32.dll") -Destination $stagingDir -Force
+    Copy-Item (Join-Path $repoRoot "release\README.txt") -Destination (Join-Path $stagingDir "README.txt") -Force
+
+    if (-not (Test-Path $artifactsDir)) {
+        New-Item -ItemType Directory -Path $artifactsDir -Force | Out-Null
+    }
+
+    Compress-Archive -Path (Join-Path $stagingDir "*") -DestinationPath $zipPath -Force
+
+    Write-Host "Release package created: $zipPath"
+} finally {
+    Pop-Location
+}

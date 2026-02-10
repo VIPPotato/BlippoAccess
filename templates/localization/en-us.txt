@@ -1,0 +1,11 @@
+# BlippoAccess localization override template
+# Copy this file to:
+#   I:\SteamLibrary\steamapps\common\Blippo+\BlippoAccessLocalization\en-us.txt
+# Then edit values you want to override.
+
+mod_loaded=Blippo Access mod loaded. F1 reports current context. F2 repeats last announcement. F12 toggles debug mode.
+where_am_i_no_focus=No focused item
+repeat_last_none=No previous announcement to repeat.
+broadcast_now_showing=Now showing {0}
+broadcast_info_panel_shown=Program info shown
+broadcast_info_panel_hidden=Program info hidden

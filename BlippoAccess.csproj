@@ -1,0 +1,85 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <OutputType>Library</OutputType>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <AssemblyName>BlippoAccess</AssemblyName>
+    <RootNamespace>BlippoAccess</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <GameDir>I:\SteamLibrary\steamapps\common\Blippo+</GameDir>
+    <ManagedDir>$(GameDir)\Blippo+_Data\Managed</ManagedDir>
+    <MelonRuntimeDir>$(GameDir)\MelonLoader\net35</MelonRuntimeDir>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="decompiled\**" />
+    <Compile Remove="reference\**" />
+    <Compile Remove="templates\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="MelonLoader">
+      <HintPath>$(MelonRuntimeDir)\MelonLoader.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="0Harmony">
+      <HintPath>$(MelonRuntimeDir)\0Harmony.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="UnityEngine">
+      <HintPath>$(ManagedDir)\UnityEngine.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>$(ManagedDir)\UnityEngine.CoreModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.InputLegacyModule">
+      <HintPath>$(ManagedDir)\UnityEngine.InputLegacyModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>$(ManagedDir)\UnityEngine.UI.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Unity.TextMeshPro">
+      <HintPath>$(ManagedDir)\Unity.TextMeshPro.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.IMGUIModule">
+      <HintPath>$(ManagedDir)\UnityEngine.IMGUIModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Assembly-CSharp">
+      <HintPath>$(ManagedDir)\Assembly-CSharp.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="NobleRobot.Common">
+      <HintPath>$(ManagedDir)\NobleRobot.Common.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="NobleRobot.Local">
+      <HintPath>$(ManagedDir)\NobleRobot.Local.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="NobleRobot.Save">
+      <HintPath>$(ManagedDir)\NobleRobot.Save.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+  <Target Name="CopyToMods" AfterTargets="Build">
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(GameDir)\Mods\" />
+    <Message Text="Copied $(TargetFileName) to $(GameDir)\Mods" Importance="High" />
+  </Target>
+</Project>

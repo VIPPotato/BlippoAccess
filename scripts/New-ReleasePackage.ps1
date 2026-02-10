@@ -34,6 +34,7 @@ $supportFiles = @(
     "Tolk.dll",
     "nvdaControllerClient64.dll",
     "nvdaControllerClient32.dll",
+    "UserData\Loader.cfg",
     "release\README.txt"
 )
 
@@ -62,12 +63,16 @@ try {
         Remove-Item $zipPath -Force
     }
 
+    $userDataDir = Join-Path $stagingDir "UserData"
+
     New-Item -ItemType Directory -Path $modsDir -Force | Out-Null
+    New-Item -ItemType Directory -Path $userDataDir -Force | Out-Null
 
     Copy-Item $modDllPath -Destination (Join-Path $modsDir "BlippoAccess.dll") -Force
     Copy-Item (Join-Path $repoRoot "Tolk.dll") -Destination $stagingDir -Force
     Copy-Item (Join-Path $repoRoot "nvdaControllerClient64.dll") -Destination $stagingDir -Force
     Copy-Item (Join-Path $repoRoot "nvdaControllerClient32.dll") -Destination $stagingDir -Force
+    Copy-Item (Join-Path $repoRoot "UserData\Loader.cfg") -Destination (Join-Path $userDataDir "Loader.cfg") -Force
     Copy-Item (Join-Path $repoRoot "release\README.txt") -Destination (Join-Path $stagingDir "README.txt") -Force
 
     if (-not (Test-Path $artifactsDir)) {

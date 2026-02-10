@@ -209,6 +209,7 @@
   - `nvdaControllerClient64.dll` and `nvdaControllerClient32.dll`
   - `README.txt` with installation instructions and MelonLoader link
 - Release ZIP naming now follows user-facing format `blippo access <version>.zip` (for example tag `v1.0` -> `blippo access 1.0.zip`)
+- Release ZIP now also includes `UserData/Loader.cfg` to ship MelonLoader console-hidden defaults for players
 - Added GitHub Actions workflow `.github/workflows/release-zip.yml` to auto-build and upload the ZIP on published releases
 
 - `Loc` update:

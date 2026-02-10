@@ -11,6 +11,7 @@ https://github.com/LavaGang/MelonLoader.Installer/releases
 - `mods/BlippoAccess.dll` to your game `Mods` folder
 - `Tolk.dll` to the game root folder (same folder as `Blippo+.exe`)
 - `nvdaControllerClient64.dll` to the game root folder
+- `UserData/Loader.cfg` to the game `UserData` folder (merge/overwrite) to keep MelonLoader console hidden
 4. Launch the game.
 
 ## Build
@@ -30,6 +31,8 @@ blippo access <version>.zip
   Tolk.dll
   nvdaControllerClient64.dll
   nvdaControllerClient32.dll
+  UserData/
+    Loader.cfg
   README.txt
 ```
 

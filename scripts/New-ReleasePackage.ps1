@@ -2,6 +2,7 @@ param(
     [Parameter(Mandatory = $true)]
     [string]$Version,
     [string]$Configuration = "Release",
+    [string]$PackageName = "blippo access",
     [switch]$SkipBuild
 )
 
@@ -11,7 +12,22 @@ $repoRoot = Resolve-Path (Join-Path $PSScriptRoot "..")
 $artifactsDir = Join-Path $repoRoot "artifacts"
 $stagingDir = Join-Path $artifactsDir "release-package"
 $modsDir = Join-Path $stagingDir "mods"
-$zipName = "BlippoAccess-$Version.zip"
+
+$normalizedVersion = $Version.Trim()
+if ([string]::IsNullOrWhiteSpace($normalizedVersion)) {
+    throw "Version is required."
+}
+
+if ($normalizedVersion -match "^[vV](.+)$") {
+    $normalizedVersion = $Matches[1]
+}
+
+$zipName = "$PackageName $normalizedVersion.zip"
+$invalidFileNameChars = [System.IO.Path]::GetInvalidFileNameChars()
+foreach ($invalidChar in $invalidFileNameChars) {
+    $zipName = $zipName.Replace($invalidChar, "-")
+}
+
 $zipPath = Join-Path $artifactsDir $zipName
 $modDllPath = Join-Path $repoRoot "bin\$Configuration\net472\BlippoAccess.dll"
 $supportFiles = @(
@@ -61,6 +77,7 @@ try {
     Compress-Archive -Path (Join-Path $stagingDir "*") -DestinationPath $zipPath -Force
 
     Write-Host "Release package created: $zipPath"
+    Write-Output $zipPath
 } finally {
     Pop-Location
 }

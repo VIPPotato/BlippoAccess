@@ -24,7 +24,7 @@ dotnet build BlippoAccess.csproj
 Each release ZIP is structured like this:
 
 ```text
-BlippoAccess-<version>.zip
+blippo access <version>.zip
   mods/
     BlippoAccess.dll
   Tolk.dll
@@ -35,3 +35,4 @@ BlippoAccess-<version>.zip
 
 The package build script is `scripts/New-ReleasePackage.ps1`.
 GitHub release packaging is automated by `.github/workflows/release-zip.yml`.
+If your tag starts with `v` (example: `v1.0`), the zip will be named without it (`blippo access 1.0.zip`).

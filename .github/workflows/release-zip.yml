@@ -21,10 +21,16 @@ jobs:
           dotnet-version: 8.0.x
 
       - name: Build release package
+        id: build_release_package
         shell: pwsh
-        run: ./scripts/New-ReleasePackage.ps1 -Version "${{ github.event.release.tag_name }}"
+        run: |
+          $zipPath = ./scripts/New-ReleasePackage.ps1 -Version "${{ github.event.release.tag_name }}"
+          if (-not (Test-Path $zipPath)) {
+            throw "Package zip not found: $zipPath"
+          }
+          "PACKAGE_ZIP_PATH=$zipPath" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
 
       - name: Upload zip to release
         uses: softprops/action-gh-release@v2
         with:
-          files: artifacts/BlippoAccess-${{ github.event.release.tag_name }}.zip
+          files: ${{ env.PACKAGE_ZIP_PATH }}

@@ -208,6 +208,7 @@
   - `Tolk.dll`
   - `nvdaControllerClient64.dll` and `nvdaControllerClient32.dll`
   - `README.txt` with installation instructions and MelonLoader link
+- Release ZIP naming now follows user-facing format `blippo access <version>.zip` (for example tag `v1.0` -> `blippo access 1.0.zip`)
 - Added GitHub Actions workflow `.github/workflows/release-zip.yml` to auto-build and upload the ZIP on published releases
 
 - `Loc` update:
